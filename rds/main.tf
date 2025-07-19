@@ -29,7 +29,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_instance" "postgres" {
   allocated_storage       = 20
-  db_name                 = "fastfood_10soat_g19_tc4"
+  db_name                 = "fastfood_10soat_g19_tc4-1"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
@@ -39,13 +39,36 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood-10soat-g19-tc4"
+  identifier              = "fastfood-10soat-g19-tc4-1"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
   apply_immediately       = true
 
   tags = {
-    Name = "PostgresInstance"
+    Name = "PostgresInstance1"
+  }
+}
+
+resource "aws_db_instance" "postgres_order" {
+  allocated_storage       = 20
+  db_name                 = "fastfood-10soat-g19-tc4-order"
+  engine                  = "postgres"
+  engine_version          = "17.5"
+  instance_class          = "db.t3.micro"
+  username                = var.db_username
+  password                = var.db_password
+  db_subnet_group_name    = aws_db_subnet_group.main.name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  publicly_accessible     = true
+  skip_final_snapshot     = true
+  identifier              = "fastfood-10soat-g19-tc4-order"
+  backup_retention_period = 7  
+  multi_az                = false
+  storage_type            = "gp3"
+  apply_immediately       = true
+
+  tags = {
+    Name = "PostgresInstanceOrder"
   }
 }
