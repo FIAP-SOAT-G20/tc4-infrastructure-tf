@@ -27,9 +27,9 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
-resource "aws_db_instance" "postgres" {
+resource "aws_db_instance" "postgres_kitchen" {
   allocated_storage       = 20
-  db_name                 = "fastfood_10soat_g19_tc4-1"
+  db_name                 = "fastfood_10soat_g19_tc4-kitchen"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
@@ -39,14 +39,14 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood-10soat-g19-tc4-1"
+  identifier              = "fastfood-10soat-g19-tc4-kitchen"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
   apply_immediately       = true
 
   tags = {
-    Name = "PostgresInstance1"
+    Name = "PostgresInstanceKitchen"
   }
 }
 
