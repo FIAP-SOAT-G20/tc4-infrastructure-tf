@@ -2,7 +2,7 @@ name: cd/create-aws-sns-tf
 
 on:
   workflow_run:
-    workflows: [cd/create-infra-aws-tf]
+    workflows: [cd/create-aws-eks-tf]
     types:
       - completed
   workflow_dispatch:
@@ -14,8 +14,8 @@ env:
   REGION_DEFAULT: us-east-1
 
 jobs:
-  create_sqs:
-    name: CD - Create AWS SQS with Terraform
+  create_sns:
+    name: CD - Create AWS SNS with Terraform
     runs-on: ubuntu-latest
     defaults:
       run:
