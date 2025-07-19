@@ -13,11 +13,8 @@ env:
 
 jobs:
   create_infra:
-    name: CD - Create AWS EKS Cluster with Terraform
+    name: CD - Create AWS Infra with Terraform
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./eks
 
     steps:
       - name: Checkout
