@@ -30,7 +30,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_instance" "postgres_kitchen" {
   allocated_storage       = 20
-  db_name                 = "fastfood-10soat-g19-tc4-kitchen"
+  db_name                 = "fastfood_10soat_g19_tc4_kitchen"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
@@ -40,7 +40,7 @@ resource "aws_db_instance" "postgres_kitchen" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood-10soat-g19-tc4-kitchen"
+  identifier              = "fastfood_10soat_g19_tc4_kitchen"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
@@ -53,7 +53,7 @@ resource "aws_db_instance" "postgres_kitchen" {
 
 resource "aws_db_instance" "postgres_order" {
   allocated_storage       = 20
-  db_name                 = "fastfood-10soat-g19-tc4-order"
+  db_name                 = "fastfood_10soat_g19_tc4_order"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
@@ -63,7 +63,7 @@ resource "aws_db_instance" "postgres_order" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood-10soat-g19-tc4-order"
+  identifier              = "fastfood_10soat_g19_tc4_order"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
