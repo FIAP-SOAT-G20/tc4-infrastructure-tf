@@ -29,7 +29,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_instance" "postgres" {
   allocated_storage       = 20
-  db_name                 = "fastfood_10soat_g22_tc3"
+  db_name                 = "fastfood_10soat_g19_tc4"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
@@ -39,7 +39,7 @@ resource "aws_db_instance" "postgres" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood-10soat-g22-tc3"
+  identifier              = "fastfood-10soat-g19-tc4"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
