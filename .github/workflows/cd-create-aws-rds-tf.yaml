@@ -12,7 +12,6 @@ on:
 
 env:
   REGION_DEFAULT: us-east-1
-  WORKING_DIRECTORY: eks
 
 jobs:
   create_rds:
