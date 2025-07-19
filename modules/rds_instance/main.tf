@@ -1,6 +1,7 @@
 resource "aws_db_subnet_group" "main" {
-  name       = "fiap-tc03-subnet"
-  subnet_ids = data.terraform_remote_state.k8s.outputs.subnet_ids
+  name       = "fiap-tc04-subnet"
+  subnet_ids = var.subnet_ids
+  description = "Subnet group for RDS instances in the FIAP TC04 project"
   
   tags = {
     Name = "RdsSubnetGroup"
@@ -10,7 +11,7 @@ resource "aws_db_subnet_group" "main" {
 resource "aws_security_group" "rds_sg" {
   name        = "rds-sg"
   description = "Allow PostgreSQL access"
-  vpc_id      = data.terraform_remote_state.k8s.outputs.vpc_id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 5432
