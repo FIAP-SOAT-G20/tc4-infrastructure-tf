@@ -17,6 +17,9 @@ jobs:
   create_rds:
     name: CD - Create AWS RDS with Terraform
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./rds
 
     steps:
       - name: Checkout
@@ -42,25 +45,20 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-        working-directory: ./rds
 
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: ./rds
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: ./rds
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan -no-color -input=false
         continue-on-error: true
-        working-directory: ./rds
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -input=false -auto-approve
-        working-directory: ./rds

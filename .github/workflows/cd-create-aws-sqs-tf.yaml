@@ -17,6 +17,9 @@ jobs:
   create_sqs:
     name: CD - Create AWS SQS with Terraform
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./sqs
 
     steps:
       - name: Checkout
@@ -37,25 +40,20 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-        working-directory: ./sqs
 
       - name: Terraform Init
         id: init
         run: terraform init -input=false
-        working-directory: ./sqs
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: ./sqs
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan -no-color -input=false
         continue-on-error: true
-        working-directory: ./sqs
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -input=false -auto-approve tfplan
-        working-directory: ./sqs
