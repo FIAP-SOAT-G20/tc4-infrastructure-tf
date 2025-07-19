@@ -6,9 +6,6 @@ on:
     types:
       - completed
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 env:
   REGION_DEFAULT: us-east-1
