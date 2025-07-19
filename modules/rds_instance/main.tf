@@ -40,7 +40,7 @@ resource "aws_db_instance" "postgres_kitchen" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood_10soat_g19_tc4_kitchen"
+  identifier              = "fastfood-10soat-g19-tc4-kitchen"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
@@ -63,7 +63,7 @@ resource "aws_db_instance" "postgres_order" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   publicly_accessible     = true
   skip_final_snapshot     = true
-  identifier              = "fastfood_10soat_g19_tc4_order"
+  identifier              = "fastfood-10soat-g19-tc4-order"
   backup_retention_period = 7  
   multi_az                = false
   storage_type            = "gp3"
