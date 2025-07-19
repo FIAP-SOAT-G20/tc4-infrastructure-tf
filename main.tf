@@ -32,6 +32,8 @@ module "sqs_instance" {
   aws_region  = var.aws_region
   environment = var.environment
   sqs_queues  = var.sqs_queues
+
+  depends_on = [module.eks_instance]
 }
 
 module "sns_instance" {
@@ -40,11 +42,15 @@ module "sns_instance" {
   aws_region     = var.aws_region
   environment    = var.environment
   sns_topic_name = "payment-approved"
+
+  depends_on = [module.eks_instance]
 }
 
 module "rds_instance" {
   source = "./modules/rds_instance"
 
+  aws_region     = var.aws_region
+  environment    = var.environment
   db_username = var.rds_db_username
   db_password = var.rds_db_password
   subnet_ids  = module.eks_instance.subnet_ids

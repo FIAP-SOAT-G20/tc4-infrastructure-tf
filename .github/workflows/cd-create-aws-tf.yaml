@@ -1,4 +1,4 @@
-name: cd/create-aws-eks-tf
+name: cd/create-aws-tf
 
 on:
   workflow_dispatch:
