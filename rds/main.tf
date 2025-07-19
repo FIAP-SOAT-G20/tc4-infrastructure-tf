@@ -29,7 +29,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_instance" "postgres_kitchen" {
   allocated_storage       = 20
-  db_name                 = "fastfood_10soat_g19_tc4-kitchen"
+  db_name                 = "fastfood-10soat-g19-tc4-kitchen"
   engine                  = "postgres"
   engine_version          = "17.5"
   instance_class          = "db.t3.micro"
