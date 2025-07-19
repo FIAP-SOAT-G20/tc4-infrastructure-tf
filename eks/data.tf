@@ -2,11 +2,11 @@ data "aws_vpc" "vpc" {
   cidr_block = var.cidr_block
 }
 
-data "aws_subnets" "subnets"{
-    filter {
-        name = "vpc-id"
-        values = [data.aws_vpc.vpc.id]
-    }
+data "aws_subnets" "subnets" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
 }
 
 data "aws_subnet" "subnet" {
@@ -19,7 +19,8 @@ data "aws_iam_role" "fiap_lab_role" {
 }
 
 data "aws_eks_cluster" "eks_cluster" {
-  name = var.project_name
+  name       = var.project_name
+  depends_on = [ aws_eks_cluster.eks-cluster ]
 }
 
 data "aws_eks_cluster_auth" "eks_cluster_auth" {
