@@ -2,7 +2,7 @@ name: cd/create-aws-sqs-tf
 
 on:
   workflow_run:
-    workflows: [cd/create-infra-aws-tf]
+    workflows: [cd/create-aws-eks-tf]
     types:
       - completed
   workflow_dispatch:
