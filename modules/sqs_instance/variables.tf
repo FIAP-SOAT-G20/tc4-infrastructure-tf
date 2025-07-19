@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "environment" {
   description = "Environment"
   type        = string
-  default     = "production"
+  default     = "dev"
 }
 
 variable "sqs_queues" {

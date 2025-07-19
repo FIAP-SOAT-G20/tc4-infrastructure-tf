@@ -42,5 +42,4 @@ variable "tags" {
     Environment = "dev"
     Project     = "tech-challenge"
   }
-
 }

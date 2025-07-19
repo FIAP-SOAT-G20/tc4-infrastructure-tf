@@ -4,10 +4,16 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "environment" {
+  description = "Environment"
+  type        = string
+  default     = "dev"
+}
+
 variable "sns_topic_name" {
   description = "Name of the SNS topic"
   type        = string
-  default     = "my-sns-topic"
+  default     = "payment-approved"
 }
 
 variable "sns_email_subscription" {
@@ -15,3 +21,4 @@ variable "sns_email_subscription" {
   type        = string
   default     = "you@example.com"
 }
+
