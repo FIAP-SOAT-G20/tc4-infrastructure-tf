@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+  release:
+    types: [created]
 
 env:
   REGION_DEFAULT: us-east-1

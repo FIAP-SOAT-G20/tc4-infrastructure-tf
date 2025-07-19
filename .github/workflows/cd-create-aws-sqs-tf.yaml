@@ -2,13 +2,10 @@ name: cd/create-aws-sqs-tf
 
 on:
   workflow_run:
-    workflows: [cd/create-aws-eks-tf]
+    workflows: [cd/create-aws-sns-tf]
     types:
       - completed
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 env:
   REGION_DEFAULT: us-east-1
