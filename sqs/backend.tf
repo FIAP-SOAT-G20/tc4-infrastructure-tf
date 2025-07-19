@@ -13,10 +13,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "fast-food-terraform-state-g19-tc4"
-    key            = "fiap/sns/terraform.tfstate"
-    region         = "us-east-1"
-    use_lockfile   = true
-    encrypt        = true
+    bucket       = "fast-food-terraform-state-soat-g19-tc4"
+    key          = "fiap/sns/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
   }
 }
