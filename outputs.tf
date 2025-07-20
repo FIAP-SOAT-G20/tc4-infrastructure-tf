@@ -83,3 +83,55 @@ output "sqs_queue_arns" {
   description = "Map of SQS queue names to their ARNs"
   value       = module.sqs_instance.sqs_queue_arns
 }
+
+# Customer Service Outputs
+# API Gateway Outputs
+output "customer_api_gateway_url" {
+  description = "URL of the Customer Service API Gateway"
+  value       = module.api_gateway.api_gateway_url
+}
+
+output "customer_api_gateway_id" {
+  description = "ID of the Customer Service API Gateway"
+  value       = module.api_gateway.api_gateway_id
+}
+
+# Lambda Outputs
+output "customer_lambda_function_name" {
+  description = "Name of the Customer Service Lambda function"
+  value       = module.lambda.lambda_function_name
+}
+
+output "customer_lambda_function_arn" {
+  description = "ARN of the Customer Service Lambda function"
+  value       = module.lambda.lambda_arn
+}
+
+# MongoDB Atlas Outputs
+output "mongodb_connection_string" {
+  description = "MongoDB Atlas connection string"
+  value       = module.mongodb_atlas.connection_string
+  sensitive   = true
+}
+
+output "mongodb_cluster_name" {
+  description = "MongoDB Atlas cluster name"
+  value       = module.mongodb_atlas.cluster_name
+}
+
+# ECR Outputs
+output "customer_ecr_repository_url" {
+  description = "URL of the Customer Service ECR repository"
+  value       = module.ecr.repository_url
+}
+
+# Application Endpoints
+output "customer_api_endpoints" {
+  description = "Customer API endpoints"
+  value = {
+    base_url       = module.api_gateway.api_gateway_url
+    auth           = "${module.api_gateway.api_gateway_url}/auth"
+    customers      = "${module.api_gateway.api_gateway_url}/customers"
+    customer_by_id = "${module.api_gateway.api_gateway_url}/customers/{id}"
+  }
+}

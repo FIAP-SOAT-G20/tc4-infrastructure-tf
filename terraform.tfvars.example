@@ -1,0 +1,65 @@
+# General Configuration
+project_name = "tc4"
+environment  = "dev"
+aws_region   = "us-east-1"
+
+# Common Tags
+common_tags = {
+  Project     = "TC4"
+  Environment = "dev"
+  Terraform   = "true"
+}
+
+log_level = "INFO"
+
+# RDS Configuration
+rds_db_username = "postgres"
+rds_db_password = "your-secure-postgres-password"
+
+# SQS Configuration
+sqs_queues = {
+  "order_queue" = {
+    name                        = "order-status-updated"
+    delay_seconds               = 0
+    message_retention_seconds   = 1209600 # 14 days
+    visibility_timeout_seconds  = 60
+    fifo_queue                  = false
+    content_based_deduplication = false
+    tags = {
+      Purpose = "Order Notifications"
+    }
+  }
+  "kitchen_queue" = {
+    name                        = "kitchen-status-updated"
+    delay_seconds               = 0
+    message_retention_seconds   = 1209600 # 14 days
+    visibility_timeout_seconds  = 60
+    fifo_queue                  = false
+    content_based_deduplication = false
+    tags = {
+      Purpose = "Kitchen Notifications"
+    }
+  }
+}
+
+# Customer Service Configuration
+customer_project_name = "tc4-customer-service"
+
+# MongoDB Atlas Configuration (FREE TIER)
+mongodb_atlas_public_key  = "your-mongodb-atlas-public-key"
+mongodb_atlas_private_key = "your-mongodb-atlas-private-key"
+mongodb_atlas_org_id      = "your-mongodb-atlas-org-id"
+mongodb_version           = "7.0"
+mongodb_cluster_tier      = "M0"  # FREE TIER
+mongodb_region            = "US_EAST_1"
+mongodb_username          = "customer_service"
+mongodb_password          = "your-secure-mongodb-password"
+# Allow all for development (restrict in production)
+mongodb_allowed_cidr_blocks = ["0.0.0.0/0"]
+
+# Lambda Configuration (FREE TIER)
+lambda_memory    = 128  # MINIMUM for free tier
+lambda_timeout   = 15   # REDUCED timeout
+
+# Application Configuration
+jwt_secret = "your-jwt-secret-key"
