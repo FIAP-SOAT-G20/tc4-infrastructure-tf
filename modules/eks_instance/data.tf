@@ -1,19 +1,3 @@
-data "aws_vpc" "vpc" {
-  cidr_block = var.cidr_block
-}
-
-data "aws_subnets" "subnets" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.vpc.id]
-  }
-}
-
-data "aws_subnet" "subnet" {
-  for_each = toset(data.aws_subnets.subnets.ids)
-  id       = each.value
-}
-
 data "aws_iam_role" "fiap_lab_role" {
   name = "LabRole"
 }
@@ -23,7 +7,13 @@ data "aws_eks_cluster" "eks_cluster" {
   depends_on = [ aws_eks_cluster.eks-cluster ]
 }
 
-data "aws_eks_cluster_auth" "eks_cluster_auth" {
-  name = var.project_name
+data "aws_eks_cluster_auth" "auth" {
+  name = aws_eks_cluster.eks-cluster.name
+}
+
+provider "kubernetes" {
+  host                   = aws_eks_cluster.eks-cluster.endpoint
+  cluster_ca_certificate = base64decode(aws_eks_cluster.eks-cluster.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.auth.token
 }
 
