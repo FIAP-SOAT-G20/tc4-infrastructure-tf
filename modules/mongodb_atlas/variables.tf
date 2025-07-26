@@ -11,7 +11,7 @@ variable "environment" {
 variable "mongodb_org_id" {
   description = "MongoDB Atlas organization ID"
   type        = string
-  default     = null
+  default     = "687b80563ede50123347b104"
 }
 
 variable "mongodb_version" {

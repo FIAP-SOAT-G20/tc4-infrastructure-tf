@@ -53,6 +53,7 @@ jobs:
           TF_VAR_mongodb_password: ${{ secrets.MONGODB_PASSWORD }}
           TF_VAR_jwt_secret: ${{ secrets.JWT_SECRET }}
           TF_VAR_rds_db_password: ${{ secrets.RDS_DB_PASSWORD }}
+          TF_VAR_rds_db_username: ${{ secrets.RDS_DB_USERNAME }}
         run: terraform plan -out=tfplan -no-color -input=false
 
       - name: Terraform Apply
@@ -64,4 +65,5 @@ jobs:
           TF_VAR_mongodb_password: ${{ secrets.MONGODB_PASSWORD }}
           TF_VAR_jwt_secret: ${{ secrets.JWT_SECRET }}
           TF_VAR_rds_db_password: ${{ secrets.RDS_DB_PASSWORD }}
+          TF_VAR_rds_db_username: ${{ secrets.RDS_DB_USERNAME }}
         run: terraform apply -input=false -auto-approve

@@ -50,7 +50,7 @@ variable "rds_db_password" {
   description = "Master password for the PostgreSQL RDS instances"
   type        = string
   sensitive   = true
-  default    = "postgres"
+  default     = "postgres"
 }
 
 variable "sqs_queues" {
@@ -102,17 +102,20 @@ variable "mongodb_atlas_public_key" {
   description = "MongoDB Atlas public key"
   type        = string
   sensitive   = true
+  default     = "vzxelncf"
 }
 
 variable "mongodb_atlas_private_key" {
   description = "MongoDB Atlas private key"
   type        = string
   sensitive   = true
+  default = "d979bc03-ced0-42f7-959e-4020ee08085c"
 }
 
 variable "mongodb_atlas_org_id" {
   description = "MongoDB Atlas organization ID"
   type        = string
+  default     = "687b80563ede50123347b104"
 }
 
 variable "mongodb_version" {
@@ -143,12 +146,13 @@ variable "mongodb_password" {
   description = "MongoDB database password"
   type        = string
   sensitive   = true
+  default     = "super-secure-mongodb-password"
 }
 
 variable "mongodb_allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access MongoDB"
-  type = list(string)
-  default = ["0.0.0.0/0"] # Allow all for now, restrict in production
+  type        = list(string)
+  default     = ["0.0.0.0/0"] # Allow all for now, restrict in production
 }
 
 # Lambda Variables
@@ -169,4 +173,5 @@ variable "jwt_secret" {
   description = "JWT secret key"
   type        = string
   sensitive   = true
+  default     = "super-jwt-secret-key"
 }
