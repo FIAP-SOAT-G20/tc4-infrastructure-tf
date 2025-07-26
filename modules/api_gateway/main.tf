@@ -1,3 +1,13 @@
+# Use existing LabRole (AWS Academy)
+data "aws_iam_role" "lab_role" {
+  name = "LabRole"
+}
+
+# API Gateway Account settings for CloudWatch Logs
+resource "aws_api_gateway_account" "customer_service" {
+  cloudwatch_role_arn = data.aws_iam_role.lab_role.arn
+}
+
 # API Gateway REST API
 resource "aws_api_gateway_rest_api" "customer_service" {
   name        = "${var.project_name}-${var.environment}-api"
