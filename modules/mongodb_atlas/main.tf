@@ -31,6 +31,18 @@ resource "mongodbatlas_cluster" "customer_service" {
   backing_provider_name       = "AWS"
   provider_region_name        = var.region
   provider_instance_size_name = var.cluster_tier
+
+  # Prevent updates for M0/M2/M5 clusters
+  lifecycle {
+    ignore_changes = [
+      cluster_type,
+      mongo_db_major_version,
+      provider_name,
+      backing_provider_name,
+      provider_region_name,
+      provider_instance_size_name
+    ]
+  }
 }
 
 # Database User
