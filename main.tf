@@ -9,6 +9,10 @@ terraform {
       source  = "mongodb/mongodbatlas"
       version = "~> 1.15"
     }
+     kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.16"
+    }
   }
 
   backend "s3" {
