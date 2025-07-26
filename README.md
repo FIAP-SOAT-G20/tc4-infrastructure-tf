@@ -26,7 +26,7 @@ This project is part of a larger system that includes:
 
 ## 🏗️ Architecture
 
-![k8s](docs/tc4-infra.jpg)
+![k8s](docs/tc4-infra.webp)
 
 ### :open_file_folder: Project Structure
 
