@@ -97,6 +97,13 @@ variable "customer_project_name" {
   default     = "tc4-customer-service"
 }
 
+# Payment Service Variables
+variable "payment_project_name" {
+  description = "Name of the payment service project"
+  type        = string
+  default     = "tc4-payment-service"
+}
+
 # DynamoDB Variables
 variable "dynamodb_billing_mode" {
   description = "DynamoDB billing mode (PROVISIONED or PAY_PER_REQUEST)"
@@ -140,6 +147,53 @@ variable "dynamodb_enable_pitr" {
 
 variable "dynamodb_enable_encryption" {
   description = "Enable server-side encryption for DynamoDB table"
+  type        = bool
+  default     = true
+}
+
+# Payment Service DynamoDB Variables
+variable "payment_dynamodb_billing_mode" {
+  description = "Payment DynamoDB billing mode (PROVISIONED or PAY_PER_REQUEST)"
+  type        = string
+  default     = "PAY_PER_REQUEST"
+  validation {
+    condition     = contains(["PROVISIONED", "PAY_PER_REQUEST"], var.payment_dynamodb_billing_mode)
+    error_message = "Billing mode must be either PROVISIONED or PAY_PER_REQUEST."
+  }
+}
+
+variable "payment_dynamodb_read_capacity" {
+  description = "Payment DynamoDB read capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
+}
+
+variable "payment_dynamodb_write_capacity" {
+  description = "Payment DynamoDB write capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
+}
+
+variable "payment_dynamodb_gsi_read_capacity" {
+  description = "Payment DynamoDB GSI read capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
+}
+
+variable "payment_dynamodb_gsi_write_capacity" {
+  description = "Payment DynamoDB GSI write capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
+}
+
+variable "payment_dynamodb_enable_pitr" {
+  description = "Enable point-in-time recovery for Payment DynamoDB table"
+  type        = bool
+  default     = true
+}
+
+variable "payment_dynamodb_enable_encryption" {
+  description = "Enable server-side encryption for Payment DynamoDB table"
   type        = bool
   default     = true
 }

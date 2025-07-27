@@ -74,9 +74,9 @@ module "ecr" {
   common_tags  = var.common_tags
 }
 
-# DynamoDB Table
-module "dynamodb" {
-  source = "./modules/dynamodb"
+# DynamoDB Table for Customer Service
+module "dynamodb_customer" {
+  source = "./modules/dynamodb_customer"
 
   project_name                 = var.customer_project_name
   environment                  = var.environment
@@ -87,6 +87,22 @@ module "dynamodb" {
   gsi_write_capacity          = var.dynamodb_gsi_write_capacity
   enable_point_in_time_recovery = var.dynamodb_enable_pitr
   enable_encryption           = var.dynamodb_enable_encryption
+  common_tags                 = var.common_tags
+}
+
+# DynamoDB Table for Payment Service
+module "dynamodb_payments" {
+  source = "./modules/dynamodb_payments"
+
+  project_name                 = var.payment_project_name
+  environment                  = var.environment
+  billing_mode                 = var.payment_dynamodb_billing_mode
+  read_capacity               = var.payment_dynamodb_read_capacity
+  write_capacity              = var.payment_dynamodb_write_capacity
+  gsi_read_capacity           = var.payment_dynamodb_gsi_read_capacity
+  gsi_write_capacity          = var.payment_dynamodb_gsi_write_capacity
+  enable_point_in_time_recovery = var.payment_dynamodb_enable_pitr
+  enable_encryption           = var.payment_dynamodb_enable_encryption
   common_tags                 = var.common_tags
 }
 
@@ -103,13 +119,13 @@ module "lambda" {
 
   environment_variables = {
     ENVIRONMENT           = var.environment
-    DYNAMODB_TABLE_NAME   = module.dynamodb.table_name
+    DYNAMODB_TABLE_NAME   = module.dynamodb_customer.table_name
     DYNAMODB_REGION       = var.aws_region
     JWT_SECRET            = var.jwt_secret
     LOG_LEVEL             = var.log_level
   }
 
-  depends_on = [module.dynamodb]
+  depends_on = [module.dynamodb_customer]
 }
 
 # API Gateway
