@@ -14,7 +14,7 @@ log_level = "INFO"
 
 # RDS Configuration
 rds_db_username = "postgres"
-rds_db_password = "your-secure-postgres-password"
+rds_db_password = "postgres"
 
 # SQS Configuration
 sqs_queues = {
