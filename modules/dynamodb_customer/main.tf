@@ -17,7 +17,7 @@ resource "aws_dynamodb_table" "customer_service" {
 
   attribute {
     name = "id"
-    type = "S"
+    type = "N"
   }
 
   attribute {
