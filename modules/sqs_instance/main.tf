@@ -14,3 +14,28 @@ resource "aws_sqs_queue" "queues" {
     Name        = each.value.name
   }, lookup(each.value, "tags", {}))
 }
+
+resource "aws_sqs_queue_policy" "sns_to_sqs" {
+  for_each  = var.sns_topic_arn != "" ? var.sqs_queues : {}
+  queue_url = aws_sqs_queue.queues[each.key].id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowSNSToSendMessage"
+        Effect = "Allow"
+        Principal = {
+          Service = "sns.amazonaws.com"
+        }
+        Action   = "sqs:SendMessage"
+        Resource = aws_sqs_queue.queues[each.key].arn
+        Condition = {
+          ArnEquals = {
+            "aws:SourceArn" = var.sns_topic_arn
+          }
+        }
+      }
+    ]
+  })
+}

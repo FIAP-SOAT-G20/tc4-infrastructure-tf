@@ -5,7 +5,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-     kubernetes = {
+    kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.16"
     }
@@ -31,16 +31,6 @@ module "eks_instance" {
   source = "./modules/eks_instance"
 }
 
-module "sqs_instance" {
-  source = "./modules/sqs_instance"
-
-  aws_region  = var.aws_region
-  environment = var.environment
-  sqs_queues  = var.sqs_queues
-
-  depends_on = [module.eks_instance]
-}
-
 module "sns_instance" {
   source = "./modules/sns_instance"
 
@@ -49,6 +39,34 @@ module "sns_instance" {
   sns_topic_name = "payment-approved"
 
   depends_on = [module.eks_instance]
+}
+
+module "sqs_instance" {
+  source = "./modules/sqs_instance"
+
+  aws_region    = var.aws_region
+  environment   = var.environment
+  sqs_queues    = var.sqs_queues
+  sns_topic_arn = module.sns_instance.sns_topic_arn
+
+  depends_on = [module.eks_instance, module.sns_instance]
+}
+
+# SNS to SQS Subscriptions
+resource "aws_sns_topic_subscription" "order_queue" {
+  topic_arn = module.sns_instance.sns_topic_arn
+  protocol  = "sqs"
+  endpoint  = module.sqs_instance.sqs_queue_arns["order_queue"]
+
+  depends_on = [module.sns_instance, module.sqs_instance]
+}
+
+resource "aws_sns_topic_subscription" "kitchen_queue" {
+  topic_arn = module.sns_instance.sns_topic_arn
+  protocol  = "sqs"
+  endpoint  = module.sqs_instance.sqs_queue_arns["kitchen_queue"]
+
+  depends_on = [module.sns_instance, module.sqs_instance]
 }
 
 module "rds_instance" {
@@ -78,32 +96,32 @@ module "ecr" {
 module "dynamodb_customer" {
   source = "./modules/dynamodb_customer"
 
-  project_name                 = var.customer_project_name
-  environment                  = var.environment
-  billing_mode                 = var.dynamodb_billing_mode
-  read_capacity               = var.dynamodb_read_capacity
-  write_capacity              = var.dynamodb_write_capacity
-  gsi_read_capacity           = var.dynamodb_gsi_read_capacity
-  gsi_write_capacity          = var.dynamodb_gsi_write_capacity
+  project_name                  = var.customer_project_name
+  environment                   = var.environment
+  billing_mode                  = var.dynamodb_billing_mode
+  read_capacity                 = var.dynamodb_read_capacity
+  write_capacity                = var.dynamodb_write_capacity
+  gsi_read_capacity             = var.dynamodb_gsi_read_capacity
+  gsi_write_capacity            = var.dynamodb_gsi_write_capacity
   enable_point_in_time_recovery = var.dynamodb_enable_pitr
-  enable_encryption           = var.dynamodb_enable_encryption
-  common_tags                 = var.common_tags
+  enable_encryption             = var.dynamodb_enable_encryption
+  common_tags                   = var.common_tags
 }
 
 # DynamoDB Table for Payment Service
 module "dynamodb_payments" {
   source = "./modules/dynamodb_payments"
 
-  project_name                 = var.payment_project_name
-  environment                  = var.environment
-  billing_mode                 = var.payment_dynamodb_billing_mode
-  read_capacity               = var.payment_dynamodb_read_capacity
-  write_capacity              = var.payment_dynamodb_write_capacity
-  gsi_read_capacity           = var.payment_dynamodb_gsi_read_capacity
-  gsi_write_capacity          = var.payment_dynamodb_gsi_write_capacity
+  project_name                  = var.payment_project_name
+  environment                   = var.environment
+  billing_mode                  = var.payment_dynamodb_billing_mode
+  read_capacity                 = var.payment_dynamodb_read_capacity
+  write_capacity                = var.payment_dynamodb_write_capacity
+  gsi_read_capacity             = var.payment_dynamodb_gsi_read_capacity
+  gsi_write_capacity            = var.payment_dynamodb_gsi_write_capacity
   enable_point_in_time_recovery = var.payment_dynamodb_enable_pitr
-  enable_encryption           = var.payment_dynamodb_enable_encryption
-  common_tags                 = var.common_tags
+  enable_encryption             = var.payment_dynamodb_enable_encryption
+  common_tags                   = var.common_tags
 }
 
 # Lambda Function
@@ -118,11 +136,11 @@ module "lambda" {
   common_tags      = var.common_tags
 
   environment_variables = {
-    ENVIRONMENT           = var.environment
-    DYNAMODB_TABLE_NAME   = module.dynamodb_customer.table_name
-    DYNAMODB_REGION       = var.aws_region
-    JWT_SECRET            = var.jwt_secret
-    LOG_LEVEL             = var.log_level
+    ENVIRONMENT         = var.environment
+    DYNAMODB_TABLE_NAME = module.dynamodb_customer.table_name
+    DYNAMODB_REGION     = var.aws_region
+    JWT_SECRET          = var.jwt_secret
+    LOG_LEVEL           = var.log_level
   }
 
   depends_on = [module.dynamodb_customer]
