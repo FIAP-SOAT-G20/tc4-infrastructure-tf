@@ -50,8 +50,8 @@ variable "enable_encryption" {
   default     = true
 }
 
-variable "kms_key_id" {
-  description = "KMS key ID for encryption (optional)"
+variable "kms_key_arn" {
+  description = "KMS key ARN for encryption (optional)"
   type        = string
   default     = null
 }
