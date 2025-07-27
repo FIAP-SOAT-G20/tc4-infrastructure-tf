@@ -9,7 +9,7 @@ terraform {
 
 # DynamoDB Table for Customer Service
 resource "aws_dynamodb_table" "customer_service" {
-  name           = "${var.project_name}-${var.environment}-customers"
+  name           = "customers"
   billing_mode   = var.billing_mode
   read_capacity  = var.billing_mode == "PROVISIONED" ? var.read_capacity : null
   write_capacity = var.billing_mode == "PROVISIONED" ? var.write_capacity : null

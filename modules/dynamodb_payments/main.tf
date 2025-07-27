@@ -9,7 +9,7 @@ terraform {
 
 # DynamoDB Table for Payment Service
 resource "aws_dynamodb_table" "payment_service" {
-  name           = "${var.project_name}-${var.environment}-payments"
+  name           = "payments"
   billing_mode   = var.billing_mode
   read_capacity  = var.billing_mode == "PROVISIONED" ? var.read_capacity : null
   write_capacity = var.billing_mode == "PROVISIONED" ? var.write_capacity : null
