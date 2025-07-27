@@ -5,10 +5,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    mongodbatlas = {
-      source  = "mongodb/mongodbatlas"
-      version = "~> 1.15"
-    }
      kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.16"
@@ -30,10 +26,6 @@ provider "aws" {
   }
 }
 
-provider "mongodbatlas" {
-  public_key  = var.mongodb_atlas_public_key
-  private_key = var.mongodb_atlas_private_key
-}
 
 module "eks_instance" {
   source = "./modules/eks_instance"
@@ -82,20 +74,20 @@ module "ecr" {
   common_tags  = var.common_tags
 }
 
-# MongoDB Atlas Cluster
-module "mongodb_atlas" {
-  source = "./modules/mongodb_atlas"
+# DynamoDB Table
+module "dynamodb" {
+  source = "./modules/dynamodb"
 
-  project_name        = var.customer_project_name
-  environment         = var.environment
-  mongodb_org_id      = var.mongodb_atlas_org_id
-  mongodb_version     = var.mongodb_version
-  cluster_tier        = var.mongodb_cluster_tier
-  region              = var.mongodb_region
-  mongodb_username    = var.mongodb_username
-  mongodb_password    = var.mongodb_password
-  allowed_cidr_blocks = var.mongodb_allowed_cidr_blocks
-  common_tags         = var.common_tags
+  project_name                 = var.customer_project_name
+  environment                  = var.environment
+  billing_mode                 = var.dynamodb_billing_mode
+  read_capacity               = var.dynamodb_read_capacity
+  write_capacity              = var.dynamodb_write_capacity
+  gsi_read_capacity           = var.dynamodb_gsi_read_capacity
+  gsi_write_capacity          = var.dynamodb_gsi_write_capacity
+  enable_point_in_time_recovery = var.dynamodb_enable_pitr
+  enable_encryption           = var.dynamodb_enable_encryption
+  common_tags                 = var.common_tags
 }
 
 # Lambda Function
@@ -110,14 +102,14 @@ module "lambda" {
   common_tags      = var.common_tags
 
   environment_variables = {
-    ENVIRONMENT      = var.environment
-    MONGODB_URI      = module.mongodb_atlas.connection_string
-    MONGODB_DATABASE = "customer_service"
-    JWT_SECRET       = var.jwt_secret
-    LOG_LEVEL        = var.log_level
+    ENVIRONMENT           = var.environment
+    DYNAMODB_TABLE_NAME   = module.dynamodb.table_name
+    DYNAMODB_REGION       = var.aws_region
+    JWT_SECRET            = var.jwt_secret
+    LOG_LEVEL             = var.log_level
   }
 
-  depends_on = [module.mongodb_atlas]
+  depends_on = [module.dynamodb]
 }
 
 # API Gateway

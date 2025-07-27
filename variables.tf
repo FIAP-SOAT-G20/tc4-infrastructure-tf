@@ -97,62 +97,51 @@ variable "customer_project_name" {
   default     = "tc4-customer-service"
 }
 
-# MongoDB Atlas Variables
-variable "mongodb_atlas_public_key" {
-  description = "MongoDB Atlas public key"
+# DynamoDB Variables
+variable "dynamodb_billing_mode" {
+  description = "DynamoDB billing mode (PROVISIONED or PAY_PER_REQUEST)"
   type        = string
-  sensitive   = true
-  default     = "vzxelncf"
+  default     = "PAY_PER_REQUEST"
+  validation {
+    condition     = contains(["PROVISIONED", "PAY_PER_REQUEST"], var.dynamodb_billing_mode)
+    error_message = "Billing mode must be either PROVISIONED or PAY_PER_REQUEST."
+  }
 }
 
-variable "mongodb_atlas_private_key" {
-  description = "MongoDB Atlas private key"
-  type        = string
-  sensitive   = true
-  default = "d979bc03-ced0-42f7-959e-4020ee08085c"
+variable "dynamodb_read_capacity" {
+  description = "DynamoDB read capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
 }
 
-variable "mongodb_atlas_org_id" {
-  description = "MongoDB Atlas organization ID"
-  type        = string
-  default     = "687b80563ede50123347b104"
+variable "dynamodb_write_capacity" {
+  description = "DynamoDB write capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
 }
 
-variable "mongodb_version" {
-  description = "MongoDB version"
-  type        = string
-  default     = "7.0"
+variable "dynamodb_gsi_read_capacity" {
+  description = "DynamoDB GSI read capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
 }
 
-variable "mongodb_cluster_tier" {
-  description = "MongoDB Atlas cluster tier"
-  type        = string
-  default     = "M0" # Free tier
+variable "dynamodb_gsi_write_capacity" {
+  description = "DynamoDB GSI write capacity units (only used with PROVISIONED billing mode)"
+  type        = number
+  default     = 5
 }
 
-variable "mongodb_region" {
-  description = "MongoDB Atlas region"
-  type        = string
-  default     = "US_EAST_1"
+variable "dynamodb_enable_pitr" {
+  description = "Enable point-in-time recovery for DynamoDB table"
+  type        = bool
+  default     = true
 }
 
-variable "mongodb_username" {
-  description = "MongoDB database username"
-  type        = string
-  default     = "customer_service"
-}
-
-variable "mongodb_password" {
-  description = "MongoDB database password"
-  type        = string
-  sensitive   = true
-  default     = "super-secure-mongodb-password"
-}
-
-variable "mongodb_allowed_cidr_blocks" {
-  description = "CIDR blocks allowed to access MongoDB"
-  type        = list(string)
-  default     = ["0.0.0.0/0"] # Allow all for now, restrict in production
+variable "dynamodb_enable_encryption" {
+  description = "Enable server-side encryption for DynamoDB table"
+  type        = bool
+  default     = true
 }
 
 # Lambda Variables

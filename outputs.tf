@@ -107,17 +107,6 @@ output "customer_lambda_function_arn" {
   value       = module.lambda.lambda_arn
 }
 
-# MongoDB Atlas Outputs
-output "mongodb_connection_string" {
-  description = "MongoDB Atlas connection string"
-  value       = module.mongodb_atlas.connection_string
-  sensitive   = true
-}
-
-output "mongodb_cluster_name" {
-  description = "MongoDB Atlas cluster name"
-  value       = module.mongodb_atlas.cluster_name
-}
 
 # ECR Outputs
 output "customer_ecr_repository_url" {

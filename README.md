@@ -38,7 +38,7 @@ This project is part of a larger system that includes:
     ├── ecr
     ├── eks_instance
     ├── lambda
-    ├── mongodb_atlas
+    ├── dynamodb
     ├── rds_instance
     ├── sns_instance
     └── sqs_instance
