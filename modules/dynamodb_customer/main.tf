@@ -41,8 +41,8 @@ resource "aws_dynamodb_table" "customer_service" {
 
   # Server-side encryption
   server_side_encryption {
-    enabled     = var.enable_encryption
-    kms_key_id  = var.kms_key_id
+    enabled      = var.enable_encryption
+    kms_key_arn  = var.kms_key_arn
   }
 
   # TTL configuration (if needed)

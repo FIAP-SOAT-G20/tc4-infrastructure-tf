@@ -5,6 +5,7 @@ provider "registry.terraform.io/hashicorp/aws" {
   version     = "5.100.0"
   constraints = "~> 5.0"
   hashes = [
+    "h1:H3mU/7URhP0uCRGK8jeQRKxx2XFzEqLiOq/L2Bbiaxs=",
     "h1:Ijt7pOlB7Tr7maGQIqtsLFbl7pSMIj06TVdkoSBcYOw=",
     "zh:054b8dd49f0549c9a7cc27d159e45327b7b65cf404da5e5a20da154b90b8a644",
     "zh:0b97bf8d5e03d15d83cc40b0530a1f84b459354939ba6f135a0086c20ebbe6b2",
@@ -28,6 +29,7 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
   version     = "2.38.0"
   constraints = "~> 2.16"
   hashes = [
+    "h1:1OF0rDUteVdoX04BrtmTc0T4NOo6+D0utmK6hM0EzZw=",
     "h1:soK8Lt0SZ6dB+HsypFRDzuX/npqlMU6M0fvyaR1yW0k=",
     "zh:0af928d776eb269b192dc0ea0f8a3f0f5ec117224cd644bdacdc682300f84ba0",
     "zh:1be998e67206f7cfc4ffe77c01a09ac91ce725de0abaec9030b22c0a832af44f",
@@ -41,27 +43,5 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
     "zh:de0805e10ebe4c83ce3b728a67f6b0f9d18be32b25146aa89116634df5145ad4",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
     "zh:faf23e45f0090eef8ba28a8aac7ec5d4fdf11a36c40a8d286304567d71c1e7db",
-  ]
-}
-
-provider "registry.terraform.io/mongodb/mongodbatlas" {
-  version     = "1.39.0"
-  constraints = "~> 1.15"
-  hashes = [
-    "h1:TIO23AUQYhF1r6hS0nvrA8rgJDSgbFk2oYqy3baVSSs=",
-    "zh:02e37d8538dffc58ad4b83abe2e6f1974e8aed7ad3204ff60b386936425a3e7a",
-    "zh:2d9583325782fa887042e60bc954d5327a8d24660203122e23fa3a07b94d3633",
-    "zh:2e68288b2df473ae8942b9403ec566cf70b743e128acad1efe5189fee0a5e2f4",
-    "zh:339d8791fc7786f2ab0e676e65e7e0d42b0681df4beb936ca0602176fbc83e5f",
-    "zh:3d55569169f943edcd0251b49a1211bf0bd0255a69f0b6a19e100d644c8cd2f7",
-    "zh:557901fc7e1dfb946d71482a91d0d21ae4bbc1c2092b529f82b80fedcc434dfe",
-    "zh:6006b9f071ba7ccc4bfa4325ecab3ccc5c890ad520340e92344e5fe515b48aac",
-    "zh:641dddc879556d3ca306fffe2c01ef21022eea92b15aa7f74a1b2ca58917a300",
-    "zh:661adbba686b5174e965e34bdf1e69239a60f142cb219819249c034b31ed79b2",
-    "zh:884acba03ea54ca781b97fc8627342ea914916630efe53211b3754304ff63ebd",
-    "zh:b6fe16d3d7fd97904177db188c49919223ccaf5b33b450e284bed5f31337da0a",
-    "zh:c8d3ad52560db3847089666a40c43ba0f161509cfe576542f875e324aa8f9af8",
-    "zh:ce7492b633e8e1ed9597d4aa43eba5a4d0775476c12335145a2a44f1d51ef949",
-    "zh:d1d85675aaf8f7c936aecc1358c79cfcc88ff8f37bca957306b12c54e2e5f640",
   ]
 }
