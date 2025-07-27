@@ -53,14 +53,6 @@ module "sqs_instance" {
 }
 
 # SNS to SQS Subscriptions
-resource "aws_sns_topic_subscription" "order_queue" {
-  topic_arn = module.sns_instance.sns_topic_arn
-  protocol  = "sqs"
-  endpoint  = module.sqs_instance.sqs_queue_arns["order_queue"]
-
-  depends_on = [module.sns_instance, module.sqs_instance]
-}
-
 resource "aws_sns_topic_subscription" "kitchen_queue" {
   topic_arn = module.sns_instance.sns_topic_arn
   protocol  = "sqs"
