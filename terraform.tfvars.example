@@ -14,7 +14,7 @@ log_level = "INFO"
 
 # RDS Configuration
 rds_db_username = "postgres"
-rds_db_password = "your-secure-postgres-password"
+rds_db_password = "postgres"
 
 # SQS Configuration
 sqs_queues = {
@@ -71,4 +71,4 @@ lambda_memory    = 128  # MINIMUM for free tier
 lambda_timeout   = 15   # REDUCED timeout
 
 # Application Configuration
-jwt_secret = "your-jwt-secret-key"
+jwt_secret = "super-jwt-secret-key"

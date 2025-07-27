@@ -22,3 +22,9 @@ variable "sqs_queues" {
     tags                         = optional(map(string))
   }))
 }
+
+variable "sns_topic_arn" {
+  description = "ARN of the SNS topic that will send messages to the SQS queues"
+  type        = string
+  default     = ""
+}
